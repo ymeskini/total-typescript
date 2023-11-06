@@ -8,18 +8,21 @@ import { ChangeEventHandler } from "react";
  * and returns it along with a union with all of its
  * keys turned to undefined.
  */
-export type InputProps = (
+export type Generic<T> = (
   | {
-      value: string;
-      onChange: ChangeEventHandler;
+      [K in keyof T]: T[K];
     }
   | {
-      value?: undefined;
-      onChange?: undefined;
+      [K in keyof T]?: undefined;
     }
 ) & {
   label: string;
 };
+
+type InputProps = Generic<{
+  value: string;
+  onChange: ChangeEventHandler;
+}>;
 
 export const Input = ({ label, ...props }: InputProps) => {
   return (

@@ -9,8 +9,10 @@
  */
 
 type ModalProps = {
-  variant: "no-title" | "title";
-  title?: string;
+  variant:  "title";
+  title: string;
+} | {
+  variant: "no-title";
 };
 
 export const Modal = (props: ModalProps) => {
