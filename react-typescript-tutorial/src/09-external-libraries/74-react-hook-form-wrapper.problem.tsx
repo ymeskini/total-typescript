@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { DefaultValues, FieldValues, useForm } from "react-hook-form";
 import { Equal, Expect, Extends } from "../helpers/type-utils";
 
 /**
@@ -8,9 +8,9 @@ import { Equal, Expect, Extends } from "../helpers/type-utils";
  * exposed. We also want to make sure that defaultValues is ALWAYS
  * required.
  */
-const useCustomForm = (defaultValues: any) => {
+const useCustomForm = <T extends FieldValues,>(defaultValues: T) => {
   const form = useForm({
-    defaultValues: defaultValues,
+    defaultValues: defaultValues as DefaultValues<T>,
   });
 
   return {

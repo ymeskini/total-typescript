@@ -1,5 +1,6 @@
-import ReactSelect from "react-select";
+import ReactSelect, { GroupBase, Props } from "react-select";
 import { Equal, Expect } from "../helpers/type-utils";
+import StateManagedSelect from "react-select/dist/declarations/src/stateManager";
 
 /**
  * 1. Try to figure out the types the props of the Select component should have,
@@ -7,7 +8,13 @@ import { Equal, Expect } from "../helpers/type-utils";
  *
  * Here's a clue: ReactSelect exports a type called 'Props'...
  */
-export const Select = (props) => {
+export const Select = <
+  Option = unknown,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>
+>(
+  props: Props<Option, IsMulti, Group>
+) => {
   return <ReactSelect {...props} />;
 };
 

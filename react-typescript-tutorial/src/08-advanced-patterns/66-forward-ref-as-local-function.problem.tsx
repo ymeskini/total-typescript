@@ -6,9 +6,9 @@ import { Equal, Expect } from "../helpers/type-utils";
  * give fixedForwardRef a type signature that allows it to
  * work with the example below.
  */
-function fixedForwardRef(
-  render: (props: any, ref: any) => any,
-): (props: any) => any {
+function fixedForwardRef<T, P = {}>(
+  render: (props: P, ref: React.Ref<T>) => React.ReactNode,
+): (props: P & React.RefAttributes<T>) => React.ReactNode {
   return forwardRef(render) as any;
 }
 

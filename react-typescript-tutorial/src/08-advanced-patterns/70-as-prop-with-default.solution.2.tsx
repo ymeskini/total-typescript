@@ -1,13 +1,10 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { ComponentPropsWithoutRef, ElementType, useRef } from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
-/**
- * This NEARLY works, but removes autocomplete for the 'as' prop.
- */
-export const Link = <T extends ElementType = "a">(
+export const Link = <T extends ElementType>(
   props: {
     as?: T;
-  } & ComponentPropsWithoutRef<T>,
+  } & ComponentPropsWithoutRef<ElementType extends T ? "a" : T>,
 ) => {
   const { as: Comp = "a", ...rest } = props;
   return <Comp {...rest}></Comp>;

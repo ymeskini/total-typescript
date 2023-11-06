@@ -1,4 +1,5 @@
 import { Router, useRouter } from "fake-external-lib";
+import { ComponentProps } from "react";
 
 /**
  * A higher-order component is a function that takes a component and returns a
@@ -15,10 +16,12 @@ import { Router, useRouter } from "fake-external-lib";
  * - React.ComponentType
  * - Probably an 'as' at least once
  */
-export const withRouter = (Component: any) => {
-  const NewComponent = (props: any) => {
+export const withRouter = <TProps extends { router: Router }>(
+  Component: React.FC<TProps>
+) => {
+  const NewComponent = (props: Omit<TProps, "router">) => {
     const router = useRouter();
-    return <Component {...props} router={router} />;
+    return <Component {...(props as TProps)} router={router} />;
   };
 
   NewComponent.displayName = `withRouter(${Component.displayName})`;

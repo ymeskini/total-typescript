@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, QueryKey, useQuery } from "@tanstack/react-query";
 import { useAuthToken } from "fake-external-lib";
 import { Equal, Expect } from "../helpers/type-utils";
 
@@ -11,9 +11,9 @@ import { Equal, Expect } from "../helpers/type-utils";
  * possible, use types from react-query to describe the types of the
  * parameters.
  */
-const useApi = (
-  queryKey: any[],
-  queryFn: (key: any, token: string) => Promise<any>,
+const useApi = <T extends QueryKey, TQueryData>(
+  queryKey: T,
+  queryFn: (ctx: QueryFunctionContext<T>, token: string) => Promise<TQueryData>
 ) => {
   const token = useAuthToken();
 
@@ -28,7 +28,7 @@ const useApi = (
 const query = useApi(["users"], async (ctx, token) => {
   type tests = [
     Expect<Equal<typeof ctx.queryKey, string[]>>,
-    Expect<Equal<typeof token, string>>,
+    Expect<Equal<typeof token, string>>
   ];
 
   return Promise.resolve([
@@ -41,7 +41,7 @@ const query = useApi(["users"], async (ctx, token) => {
 
 // The type of query.data should be { id: number; name: string }[] | undefined
 type tests = [
-  Expect<Equal<typeof query.data, { id: number; name: string }[] | undefined>>,
+  Expect<Equal<typeof query.data, { id: number; name: string }[] | undefined>>
 ];
 
 // If you pass in an array of numbers in the queryKey, the type of ctx.queryKey

@@ -1,4 +1,10 @@
-import { ComponentProps, ElementType, forwardRef, useRef } from "react";
+import {
+  ComponentPropsWithRef,
+  ElementType,
+  ForwardedRef,
+  forwardRef,
+  useRef,
+} from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
 // Added fixedForwardRef from a previous exercise
@@ -15,14 +21,18 @@ type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any
   ? Omit<T, TOmitted>
   : never;
 
-function UnwrappedLink<T extends ElementType>(
+export const UnwrappedLink = <TAs extends ElementType>(
   props: {
-    as?: T;
-  } & DistributiveOmit<ComponentProps<ElementType extends T ? "a" : T>, "as">,
-) {
+    as?: TAs;
+  } & DistributiveOmit<
+    ComponentPropsWithRef<ElementType extends TAs ? "a" : TAs>,
+    "as"
+  >,
+  ref: ForwardedRef<any>,
+) => {
   const { as: Comp = "a", ...rest } = props;
-  return <Comp {...rest}></Comp>;
-}
+  return <Comp {...rest} ref={ref}></Comp>;
+};
 
 const Link = fixedForwardRef(UnwrappedLink);
 

@@ -1,12 +1,29 @@
-import React, { ComponentPropsWithoutRef, ElementType } from "react";
+import React, { ElementType } from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
-export const Wrapper = <T extends ElementType>(
+/**
+ * This is a further extension of 'as'. This time, we can pass in
+ * _any_ component as a prop, and it'll be rendered with the other
+ * props passed in.
+ *
+ * 1. Figure out the correct typings for the `Wrapper` component.
+ *
+ * The solution uses:
+ *
+ * - Generics
+ * - ElementType
+ * - One of the following:
+ *   - ComponentPropsWithoutRef
+ *   - ComponentPropsWithRef
+ *   - ComponentProps
+ */
+export const Wrapper = <TAs extends ElementType>(
   props: {
-    as: T;
-  } & ComponentPropsWithoutRef<T>,
+    as: TAs;
+  } & React.ComponentPropsWithoutRef<TAs>,
 ) => {
   const Comp = props.as;
+
   return <Comp {...(props as any)}></Comp>;
 };
 
@@ -40,11 +57,8 @@ const Example1 = () => {
  * Should work with Custom components!
  */
 
-const Custom = (
-  props: { thisIsRequired: boolean },
-  ref: React.ForwardedRef<HTMLAnchorElement>,
-) => {
-  return <a ref={ref} />;
+const Custom = (props: { thisIsRequired: boolean }) => {
+  return <a />;
 };
 
 const Example2 = () => {

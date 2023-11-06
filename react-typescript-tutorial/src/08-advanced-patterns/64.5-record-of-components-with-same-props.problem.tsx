@@ -22,9 +22,12 @@ const COMPONENTS = {
   password: (props) => {
     return <input {...props} type="password" />;
   },
-};
+} satisfies Record<
+  "text" | "number" | "password",
+  React.FC<InputProps>
+>;
 
-export const Input = (props: unknown) => {
+export const Input = (props: { type: keyof typeof COMPONENTS } & InputProps) => {
   const Component = COMPONENTS[props.type];
   return <Component {...props} />;
 };
