@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { createPortal } from "react-dom";
 import { Equal, Expect } from "../helpers/type-utils";
 
@@ -17,7 +17,9 @@ interface ModalChildProps {
   closeModal: () => void;
 }
 
-const Modal = ({ children }: any) => {
+const Modal = ({ children }: {
+  children: FC<ModalChildProps>;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

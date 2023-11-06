@@ -6,7 +6,11 @@
  */
 
 type ClickMe = React.ReactElement;
+// jsx components
+// React.ReactElement = JSX.Element
+// avoid using JSX types
 type ClickMeToo = JSX.Element;
+// broader type
 type ClickMeThree = React.ReactNode;
 
 /**

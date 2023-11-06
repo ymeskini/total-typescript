@@ -6,7 +6,7 @@
  * in @types/react/index.d.ts.
  */
 
-export type Example = JSX.IntrinsicElements;
+export type Example = React.JSX.IntrinsicElements;
 
 /**
  * 2. What is the structure of JSX.IntrinsicElements? It appears to have the

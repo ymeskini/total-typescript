@@ -15,7 +15,7 @@ type Example = React.ReactNode;
  * later exercises, so make sure when you go-to-definition you
  * go to its original definition, in @types/react/index.d.ts.
  */
+// because of export = React;
 const element = React.createElement("div");
 //              ^?
 
-export {};
